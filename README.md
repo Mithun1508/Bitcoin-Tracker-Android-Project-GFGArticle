@@ -34,26 +34,45 @@ Add Currency list in string.xml:
 We need to add the list of all currencies in the strings.xml. From here we will display it in the activity to the users. Add the below code in the strings.xml file.
 
 <resources>
+
     <string name="app_name">Am I Rich?</string>
+    
     <string name="label_default_text">304.74</string>
+    
     <string name="label_error_text">Error</string>
+    
     <string name="base">Base Currency</string>
+    
     <string name="imageview_desc">Bitcoin Logo</string>
   
     <string-array name="currency_array">
+    
         <item>AUD</item>
+        
         <item>BRL</item>
+        
         <item>CAD</item>
+        
         <item>CNY</item>
+        
         <item>EUR</item>
+        
         <item>GBP</item>
+        
         <item>HKD</item>
+        
         <item>JPY</item>
+        
         <item>PLN</item>
+        
         <item>RUB</item>
+        
         <item>SEK</item>
+        
         <item>USD</item>
+        
         <item>ZAR</item>
+        
     </string-array>
       
 </resources>
@@ -65,62 +84,109 @@ The XML codes are used to build the structure of the activity as well as its sty
 
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout 
+
     xmlns:android="http://schemas.android.com/apk/res/android"
+    
     xmlns:tools="http://schemas.android.com/tools"
+    
     android:layout_width="match_parent"
+    
     android:layout_height="match_parent"
+    
     android:background="@color/bkgndColour"
+    
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    
     android:paddingTop="@dimen/activity_vertical_margin"
+    
     android:paddingRight="@dimen/activity_horizontal_margin"
+    
     android:paddingBottom="@dimen/activity_vertical_margin"
+    
     tools:context="com.example.bitcointracker.MainActivity">
   
     <TextView
+    
         android:id="@+id/priceLabel"
+        
         android:layout_width="wrap_content"
+        
         android:layout_height="wrap_content"
+        
         android:layout_centerHorizontal="true"
+        
         android:layout_centerVertical="true"
+        
         android:text="@string/label_default_text"
+        
         android:textColor="@color/fontColour"
+        
+        
         android:textSize="45sp"
+        
         android:textStyle="bold" />
   
     <ImageView
+    
         android:id="@+id/logoImage"
+        
         android:layout_width="wrap_content"
+        
         android:layout_height="wrap_content"
+        
         android:layout_alignParentTop="true"
+        
         android:layout_centerHorizontal="true"
+        
         android:contentDescription="@string/imageview_desc"
+        
         android:src="@drawable/bitcoin_image" />
   
     <LinearLayout
+    
         android:layout_width="match_parent"
+        
         android:layout_height="match_parent"
+        
         android:layout_below="@+id/priceLabel"
+        
         android:gravity="center_vertical|center_horizontal"
+        
         android:orientation="horizontal">
   
         <TextView
+        
             android:id="@+id/textView"
+            
             android:layout_width="wrap_content"
+            
             android:layout_height="wrap_content"
+            
             android:layout_gravity="center_vertical"
+            
             android:layout_marginLeft="10dp"
+            
             android:layout_marginRight="10dp"
+            
             android:text="@string/base"
+            
             android:textAppearance="?android:attr/textAppearanceLarge"
+            
             android:textSize="30sp"
+            
             android:textStyle="bold" />
   
         <Spinner
             android:id="@+id/currency_spinner"
+            
             android:layout_width="wrap_content"
+            
             android:layout_height="wrap_content"
+            
             android:dropDownSelector="@color/fontColour"
+            
             android:gravity="center_horizontal"
+            
             android:spinnerMode="dropdown" />
           
     </LinearLayout>
@@ -132,32 +198,57 @@ The XML codes are used to build the structure of the activity as well as its sty
 For the spinner to display the list we also need to create a spinner item’s XML layout as well as its item’s layout for the adapter. Add the below codes in app> res > layout > spinner_dropdown_item.xml.
 
 <?xml version="1.0" encoding="utf-8"?>
+
 <CheckedTextView 
+
     xmlns:android="http://schemas.android.com/apk/res/android"
+    
     android:id="@android:id/text1"
+    
     style="?android:attr/spinnerDropDownItemStyle"
+    
     android:layout_width="match_parent"
+    
     android:layout_height="?android:attr/listPreferredItemHeight"
+    
     android:background="@drawable/color_selector"
+    
     android:ellipsize="marquee"
+    
     android:paddingLeft="10dp"
+    
     android:paddingRight="10dp"
+    
     android:singleLine="true"
+    
     android:text="@string/label_error_text"
+    
     android:textColor="@color/black"
+    
     android:textSize="30sp" />
+    
 spinner_item.xml file:
 
 <?xml version="1.0" encoding="utf-8"?>
+
 <TextView 
+
     xmlns:android="http://schemas.android.com/apk/res/android"
+    
     android:layout_width="match_parent"
+    
     android:layout_height="wrap_content"
+    
     android:gravity="start"
+    
     android:padding="10dip"
+    
     android:text="@string/label_error_text"
+    
     android:textColor="@color/black"
+    
     android:textSize="30sp"
+    
     android:textStyle="bold" />
 
 # Step 5: Working with the MainActivity.java file
@@ -165,20 +256,30 @@ spinner_item.xml file:
 In the java file, we will create a function that will make HTTP requests from the URL. The URL will be consisting of the API key the base URL and the target currency code. First, we will create an adapter for the list of all the currencies and set it to the Spinner view in the main activity. Then we will call the function onItemSelectedListener and get the selected currency code. We will add this code to the URL along with its other parts. Then we will call the function that makes HTTP requests to get a JSON. We will parse the JSON object to get the required rate of the bitcoin of the selected currency. Below is the code for the MainActivity.java file. Comments are added inside the code to understand the code in more detail.
 
 import android.os.Bundle;
+
 import android.util.Log;
+
 import android.view.View;
+
 import android.widget.AdapterView;
+
 import android.widget.AdapterView.OnItemSelectedListener;
+
 import android.widget.ArrayAdapter;
+
 import android.widget.Spinner;
+
 import android.widget.TextView;
   
 import androidx.appcompat.app.AppCompatActivity;
   
 import com.loopj.android.http.AsyncHttpClient;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
+
   
 import org.json.JSONException;
+
 import org.json.JSONObject;
   
 import java.io.IOException;
@@ -196,10 +297,13 @@ public class MainActivity extends AppCompatActivity {
   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_main);
   
         mPriceTextView = (TextView) findViewById(R.id.priceLabel);
+        
         Spinner spinner = (Spinner) findViewById(R.id.currency_spinner);
   
         // Create an ArrayAdapter using the String array and a spinner layout
