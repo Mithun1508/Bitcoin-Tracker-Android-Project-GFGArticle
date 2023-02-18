@@ -58,7 +58,8 @@ We need to add the list of all currencies in the strings.xml. From here we will 
       
 </resources>
 
-## Step 3: Working with the activity_main.xml file
+
+# Step 3: Working with the activity_main.xml file
 
 The XML codes are used to build the structure of the activity as well as its styling part. It contains an ImageView at the very top of the activity to display the logo of the app. Then it contains a TextView to display the bitcoin rate in the center of the activity. At last, we have a Spinner at the bottom of the activity to display the list of currencies from which the user can choose. This is a single activity application. Below is the code for the activity_main.xml file.
 
@@ -126,7 +127,7 @@ The XML codes are used to build the structure of the activity as well as its sty
   
 </RelativeLayout>
 
-## Step 4: Create new layout resource files
+# Step 4: Create new layout resource files
 
 For the spinner to display the list we also need to create a spinner item’s XML layout as well as its item’s layout for the adapter. Add the below codes in app> res > layout > spinner_dropdown_item.xml.
 
@@ -159,7 +160,7 @@ spinner_item.xml file:
     android:textSize="30sp"
     android:textStyle="bold" />
 
-## Step 5: Working with the MainActivity.java file
+# Step 5: Working with the MainActivity.java file
 
 In the java file, we will create a function that will make HTTP requests from the URL. The URL will be consisting of the API key the base URL and the target currency code. First, we will create an adapter for the list of all the currencies and set it to the Spinner view in the main activity. Then we will call the function onItemSelectedListener and get the selected currency code. We will add this code to the URL along with its other parts. Then we will call the function that makes HTTP requests to get a JSON. We will parse the JSON object to get the required rate of the bitcoin of the selected currency. Below is the code for the MainActivity.java file. Comments are added inside the code to understand the code in more detail.
 
